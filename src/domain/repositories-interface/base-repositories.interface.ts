@@ -1,7 +1,7 @@
-export interface BaseRepositorieInterface {
-  findById(id: any): Promise<any>;
-  findAll(): Promise<any>;
-  create(data: any): Promise<any>;
+export interface BaseRepositorieInterface<T> {
+  findById(id: any): Promise<T>;
+  findAll(): Promise<T[]>;
+  create(data: any): Promise<T>;
   delete(id: any): Promise<void>;
-  update(data: any): Promise<any>;
+  update(data: any): Promise<void>;
 }

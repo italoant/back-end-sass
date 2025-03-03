@@ -1,48 +1,68 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BaseEntity } from 'src/domain/entities/base/base.entity';
 import { BaseRepositorieInterface } from 'src/domain/repositories-interface/base-repositories.interface';
-import { DbService } from 'src/infrastructure/services/database-service/database-service';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class BaseRepositorie implements BaseRepositorieInterface {
-  constructor(private readonly db: DbService) {}
+export class BaseRepositorie implements BaseRepositorieInterface<BaseEntity> {
+  constructor(
+    @InjectRepository(BaseEntity)
+    private readonly baseRepositorie: Repository<BaseEntity>,
+  ) {}
 
-  async findById(id: any): Promise<any> {
+  async findById(id: any): Promise<BaseEntity> {
     try {
-    } catch (e) {
-      throw new InternalServerErrorException(`Client nao existe, error: ${e}`);
-    }
-  }
+      const client = await this.baseRepositorie.findOne(id);
 
-  async findAll(): Promise<any> {
-    try {
-    } catch (e) {
+      if (client) {
+        return client;
+      }
+      return {} as BaseEntity;
+    } catch (error) {
       throw new InternalServerErrorException(
-        `algum problema ocorreu durante a busca de clients, error: ${e}`,
+        `Client nao existe, error: ${error}`,
       );
     }
   }
 
-  async create(data: any): Promise<any> {
+  async findAll(): Promise<BaseEntity[]> {
     try {
-    } catch (e) {
+      return await this.baseRepositorie.find();
+    } catch (error) {
       throw new InternalServerErrorException(
-        `Erro ao criar cliente, error: ${e}`,
+        `algum problema ocorreu durante a busca de clients, error: ${error}`,
+      );
+    }
+  }
+
+  async create(data: any): Promise<BaseEntity> {
+    try {
+      return await this.baseRepositorie.save(data);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Erro ao criar cliente, error: ${error}`,
       );
     }
   }
   async delete(id: any): Promise<void> {
     try {
-    } catch (e) {
+      await this.baseRepositorie.delete(id);
+    } catch (error) {
       throw new InternalServerErrorException(
-        `Erro ao deletar cliente, error: ${e}`,
+        `Erro ao deletar cliente, error: ${error}`,
       );
     }
   }
-  async update(data: any): Promise<any> {
+  async update(data: any): Promise<void> {
     try {
-    } catch (e) {
+      await this.baseRepositorie.upsert(data, {
+        conflictPaths: ['id'],
+        skipUpdateIfNoValuesChanged: true,
+      });
+    } catch (error) {
       throw new InternalServerErrorException(
-        `Erro ao atualizar cliente, error: ${e}`,
+        `Erro ao atualizar cliente, error: ${error}`,
       );
     }
   }
