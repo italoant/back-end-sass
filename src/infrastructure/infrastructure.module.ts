@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { UseCaseModule } from 'src/use-cases/use-case.module';
-import { BaseController } from './controllers/base-controller';
+import { ClientController } from './controllers/client.controller';
+import { ClientPersonalDataController } from './controllers/client-personal-data.controller';
 
 @Module({
   imports: [UseCaseModule],
-  controllers: [BaseController],
+  controllers: [ClientController, ClientPersonalDataController],
 })
 export class InfraModule {}

@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { BaseRepositorieInterface } from 'src/domain/repositories-interface/base-repositories.interface';
+import { ClientRepositorieInterface } from 'src/domain/repositories-interface/client-repositories.interface';
 import { DBService } from 'src/domain/database/db.service';
 import { ObjectLiteral } from 'typeorm';
 
 @Injectable()
-export class BaseRepositorie<BaseEntity extends ObjectLiteral>
-  implements BaseRepositorieInterface<BaseEntity>
+export class ClientRepositorie<ClientEntity extends ObjectLiteral>
+  implements ClientRepositorieInterface<ClientEntity>
 {
-  constructor(private readonly db: DBService<BaseEntity>) {}
+  constructor(private readonly db: DBService<ClientEntity>) {}
 
-  async findById(id: any): Promise<BaseEntity> {
+  async findById(id: any): Promise<ClientEntity> {
     const client = await this.db.findById(id);
 
     if (client) {
       return client;
     }
-    return {} as BaseEntity;
+    return {} as ClientEntity;
   }
 
-  async findAll(): Promise<BaseEntity[]> {
+  async findAll(): Promise<ClientEntity[]> {
     return await this.db.findAll();
   }
 

@@ -2,7 +2,7 @@ import { Entity, Column } from 'typeorm';
 import DefaulEntity from 'src/common/entity/entity';
 
 @Entity()
-export class BaseEntity extends DefaulEntity {
+export class ClientEntity extends DefaulEntity {
   @Column()
   public readonly name: string;
   @Column()

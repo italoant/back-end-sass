@@ -1,17 +1,17 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { BaseEntity } from 'src/domain/entities/base/base.entity';
-import { CreateUseCase } from 'src/use-cases/cases/base-use-case/create.use-case';
-import { GetUseCase } from 'src/use-cases/cases/base-use-case/get.use-case';
+import { ClientEntity } from 'src/domain/entities/client.entity';
+import { CreateUseCase } from 'src/use-cases/cases/client-use-case/create.use-case';
+import { GetUseCase } from 'src/use-cases/cases/client-use-case/get.use-case';
 
-@Controller('base')
-export class BaseController {
+@Controller('client')
+export class ClientController {
   constructor(
     private readonly getUsecase: GetUseCase,
     private readonly createUseCase: CreateUseCase,
   ) {}
 
   @Get()
-  async getAll(): Promise<BaseEntity[]> {
+  async getAll(): Promise<ClientEntity[]> {
     return await this.getUsecase.exec();
   }
 

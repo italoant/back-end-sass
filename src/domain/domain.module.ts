@@ -1,7 +1,7 @@
 import { Module, DynamicModule, Provider } from '@nestjs/common';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { DBService } from './database/db.service';
-import { BaseRepositorie } from './repositories/base/base-repositorie';
+import { ClientRepositorie } from './repositories/client/client-repositorie';
 import * as entities from './register.entities'; // Importa todas as entidades
 import { Repository } from 'typeorm';
 
@@ -35,13 +35,24 @@ export class DomainModule {
       providers: [
         ...providers,
         {
-          provide: 'BaseRepositorie',
-          useFactory: (dbService: DBService<any>) =>
-            new BaseRepositorie(dbService),
-          inject: ['DbService_BaseEntity'], // Injeta o DbService da BaseEntity como padrão
+          provide: 'ClientRepositorie',
+          useFactory: (dbService: DBService<entities.ClientEntity>) =>
+            new ClientRepositorie(dbService),
+          inject: ['DbService_ClientEntity'],
+        },
+        {
+          provide: 'ClientPersonalDataRepositorie',
+          useFactory: (
+            dbService: DBService<entities.ClientPersonalDataEntity>,
+          ) => new ClientRepositorie(dbService),
+          inject: ['DbService_ClientPersonalDataEntity'],
         },
       ],
-      exports: [...exports, 'BaseRepositorie'], // Exporta os provedores e o BaseRepositorie
+      exports: [
+        ...exports,
+        'ClientRepositorie',
+        'ClientPersonalDataRepositorie',
+      ], // Exporta os provedores e os repositories
     };
   }
 }
