@@ -7,8 +7,4 @@ export class ClientPersonalDataEntity extends DefaulEntity {
   public readonly cpf: string;
   @Column()
   public readonly telefone: string;
-  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-  public readonly creation_date: Date;
-  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-  public readonly update_date: Date;
 }

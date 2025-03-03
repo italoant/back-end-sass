@@ -5,6 +5,7 @@ import { CreateUseCase } from './cases/client-use-case/create.use-case';
 import { GetUseCase } from './cases/client-use-case/get.use-case';
 import { CreatePersonalDataUseCase } from './cases/client-personal-data-use.case/create.use-case';
 import { GetPersonalDataUseCase } from './cases/client-personal-data-use.case/get.use-case';
+import { PrismaClient } from '@prisma/client';
 
 @Module({
   imports: [HttpModule, DomainModule.forRoot()],

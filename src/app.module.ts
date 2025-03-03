@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { InfraModule } from './infrastructure/infrastructure.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as entities from './domain/register.entities'; // Importa todas as entidades
+import { PrismaClient } from '@prisma/client';
 
 @Module({
   imports: [

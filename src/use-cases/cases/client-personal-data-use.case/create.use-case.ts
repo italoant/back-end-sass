@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientEntity } from 'src/domain/entities/client.entity';
 import { ClientPersonalDataEntity } from 'src/domain/register.entities';
 import { ClientRepositorieInterface } from 'src/domain/repositories-interface/client-repositories.interface';
 

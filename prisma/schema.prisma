@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model base_entity {
+  id            String   @id
+  name          String
+  email         String
+  password      String
+  creation_date DateTime @default(now())
+  update_date   DateTime @default(now())
+  type          String
+}
+
+model client_entity {
+  id            String   @id
+  name          String
+  email         String
+  password      String
+  creation_date DateTime @default(now())
+  update_date   DateTime @default(now())
+  type          String
+}
+
+model client_personal_data_entity {
+  id            String   @id
+  cpf           String
+  telefone      String
+  creation_date DateTime @default(now())
+  update_date   DateTime @default(now())
+}

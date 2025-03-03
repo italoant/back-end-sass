@@ -1,9 +1,13 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { ObjectLiteral, Repository } from 'typeorm';
+import { PrismaClient } from '@prisma/client';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class DBService<T extends ObjectLiteral> {
-  constructor(private readonly repository: Repository<T>) {}
+export class DBService<T> {
+  constructor(
+    private readonly repository: Repository<any>,
+    private readonly prismaClient: PrismaClient,
+  ) {}
 
   async findById(id: string): Promise<T> {
     try {
@@ -22,7 +26,11 @@ export class DBService<T extends ObjectLiteral> {
 
   async findAll(): Promise<T[]> {
     try {
-      return await this.repository.find();
+      const typeorm = await this.repository.find();
+
+      // const prisma = await this.prismaClient.client_entity.findMany();
+
+      return typeorm;
     } catch (error) {
       throw new InternalServerErrorException(
         `Erro ao buscar todas as entidades, erro: ${error}`,

@@ -29,9 +29,6 @@ export class ClientRepositorie<ClientEntity extends ObjectLiteral>
     await this.db.delete(id);
   }
   async update(data: any): Promise<void> {
-    // await this.db.update(data, {
-    //   conflictPaths: ['id'],
-    //   skipUpdateIfNoValuesChanged: true,
-    // });
+    await this.db.update(data);
   }
 }
