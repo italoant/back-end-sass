@@ -5,7 +5,7 @@ import { CreateUseCase } from './cases/base-use-case/create.use-case';
 import { GetUseCase } from './cases/base-use-case/get.use-case';
 
 @Module({
-  imports: [HttpModule, DomainModule],
+  imports: [HttpModule, DomainModule.forRoot()],
   providers: [GetUseCase, CreateUseCase],
   exports: [GetUseCase, CreateUseCase],
 })

@@ -10,9 +10,7 @@ import { BaseEntity } from './domain/entities/base/base.entity';
 
 @Module({
   imports: [
-    DomainModule,
     InfraModule,
-    UseCaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

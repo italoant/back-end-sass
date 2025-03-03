@@ -24,7 +24,7 @@ export class BaseController {
       type: string;
       password: string;
     },
-  ): Promise<BaseEntity> {
+  ): Promise<unknown> {
     return await this.createUseCase.exec(data);
   }
 }

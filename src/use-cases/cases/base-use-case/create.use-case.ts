@@ -8,7 +8,7 @@ export class CreateUseCase {
     @Inject('BaseRepositorie')
     private readonly baseRepositorie: BaseRepositorieInterface<BaseEntity>,
   ) {}
-  async exec(data: any): Promise<BaseEntity> {
+  async exec(data: any): Promise<unknown> {
     return await this.baseRepositorie.create(data);
   }
 }
